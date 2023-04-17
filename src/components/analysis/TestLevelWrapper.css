@@ -1,0 +1,21 @@
+.test-level-wrapper {
+	padding: 12px;
+}
+
+@media (max-width: 1024px) {
+	.test-level-wrapper {
+		padding: 8px;
+	}
+}
+.analysis-content-wrapper {
+	margin: 0px !important;
+}
+
+.analysis-content-wrapper .content-and-rsb-container {
+	padding: 8px;
+}
+@media screen and (min-width: 600px) {
+	.analysis-content-wrapper .content-and-rsb-container {
+		padding: 12px;
+	}
+}

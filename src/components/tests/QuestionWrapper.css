@@ -1,0 +1,18 @@
+.question-wrapper-wrapper {
+	margin: 0;
+	height: 100%;
+}
+
+@media (min-width: 1025px) {
+	.question-wrapper-wrapper {
+		min-height: 100vh;
+		max-height: 100vh;
+	}
+}
+
+@media (max-width: 1024px) {
+	.question-wrapper-wrapper {
+		width: 100%;
+		margin: 0px;
+	}
+}

@@ -1,0 +1,149 @@
+.prepleaf-logo-wrapper {
+	height: 64px;
+	/*border-bottom: 1px solid rgba(255, 255, 255, 0.2);*/
+	/*margin-bottom: 20px;*/
+}
+
+.ant-menu-submenu-title {
+	overflow: visible !important;
+}
+
+.prepleaf-logo {
+	/*246, 788*/
+	width: 180px;
+	height: 62px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-left: 20px;
+}
+
+.prepleaf-logo img {
+	height: 55%;
+}
+
+.logo-wrapper {
+	overflow: hidden;
+	transition: 1s;
+}
+
+.dark-button {
+	background-color: #1d2021 !important;
+	border: 1px solid #3d3c38 !important;
+	font-size: 11px !important;
+}
+
+.dark-button:hover {
+	background-color: #282828 !important;
+	border: 1px solid #3d3c38 !important;
+}
+
+.dark-button:focus {
+	background-color: #1d2021 !important;
+	border: 1px solid #3d3c38 !important;
+}
+
+.dashboard-content-padding-bottom-on-mobile {
+	padding-bottom: 64px;
+}
+
+.mobile-footer {
+	display: block;
+}
+
+.desktop-sidebar {
+	display: none;
+}
+
+.desktop-footer {
+	display: none;
+}
+
+.feedback-wrapper {
+	display: none;
+}
+
+.collapsed-true {
+	display: none;
+}
+
+.collapsed-false {
+	display: block;
+}
+
+@media only screen and (min-width: 900px) {
+	.mobile-footer {
+		display: none;
+	}
+	.dashboard-content-padding-bottom-on-mobile {
+		padding-bottom: 0;
+	}
+	.desktop-sidebar {
+		display: block;
+	}
+
+	.desktop-footer {
+		display: block;
+	}
+
+	.feedback-wrapper {
+		display: block;
+	}
+}
+
+.ant-tooltip-content .new-indicator {
+	display: none;
+}
+
+.mobile-footer-inner-container {
+	$height-md: 56px;
+	$height-sm: 52px;
+	$height-lg: 64px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	.mobile-footer-item {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: space-between;
+		font-size: 13px;
+		line-height: normal;
+		flex: 1;
+		height: $height-md;
+		padding: 6px 4px;
+		cursor: pointer;
+		&.active {
+			color: #429add;
+		}
+		.anticon {
+			font-size: 24px;
+		}
+		.react-icons-icon {
+			font-size: 28px;
+		}
+		@media (min-width: 450px) {
+			height: $height-lg;
+			font-size: 15px;
+			justify-content: space-around;
+			.anticon {
+				font-size: 24px;
+				margin-top: 2px;
+				margin-bottom: -2px;
+			}
+		}
+
+		@media (max-height: 390px) {
+			height: $height-sm;
+			font-size: 12px;
+			.anticon {
+				font-size: 20px;
+				line-height: normal;
+			}
+			.react-icons-icon {
+				font-size: 24px;
+			}
+		}
+	}
+}

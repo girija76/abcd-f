@@ -1,0 +1,20 @@
+.practice-question-solution {
+	border: solid 1px #dadce0;
+	border-radius: 5px;
+	margin: 20px 0;
+	font-family: 'Red Hat Display';
+	background-color: #fff;
+}
+
+.practice-question-solution-title {
+	padding: 10px 20px;
+	margin: 0;
+	font-size: 18px;
+	font-weight: 500;
+	border-bottom: solid 1px #dadce0;
+}
+
+.practice-question-solution-content {
+	padding: 20px;
+	font-size: 16px;
+}

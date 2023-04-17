@@ -1,0 +1,20 @@
+{
+	"short_name": "Prepseed",
+	"name": "Prepseed Preparation Portal",
+	"icons": [
+		{
+			"src": "/images/ic_launcher-192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "/images/ic_launcher-512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": "/?pwa=1",
+	"background_color": "#ffffff",
+	"display": "standalone",
+	"theme_color": "#429add"
+}

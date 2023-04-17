@@ -1,0 +1,68 @@
+.analysis-scorecard {
+	.list {
+		.item {
+			flex: 1 1 0%;
+			display: flex;
+			justify-content: center;
+			flex-direction: column-reverse;
+			align-items: center;
+			padding-top: 5px;
+			.label {
+				font-size: 14px;
+				color: #777;
+				text-align: center;
+			}
+			.numbers {
+				font-size: 28px;
+				font-weight: 600;
+				color: #555;
+			}
+		}
+	}
+	@media screen and (max-width: 600px) {
+		.ant-card-body {
+			padding: 12px;
+		}
+	}
+}
+
+.color.color-correct {
+	color: rgb(80, 135, 50) !important;
+}
+.color.color-incorrect {
+	color: rgb(255, 50, 50) !important;
+}
+
+.analysis-switch {
+	background-color: #1890ff !important;
+}
+
+.test-name-text {
+	font-size: 20px;
+}
+
+.review-question-link-top {
+	display: none;
+}
+
+.test-name-wrapper {
+	margin-bottom: 10px;
+}
+
+.time-difficulty-wrapper {
+	flex-direction: column;
+}
+
+@media only screen and (min-width: 900px) {
+	.test-name-text {
+		font-size: 24px;
+	}
+
+	.review-question-link-top {
+		display: block;
+	}
+
+	.time-difficulty-wrapper {
+		flex-direction: row;
+	}
+}

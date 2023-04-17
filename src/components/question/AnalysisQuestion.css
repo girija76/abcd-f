@@ -1,0 +1,57 @@
+/*@import url('https://fonts.googleapis.com/css?family=Raleway:600');
+
+.custom-button-round{
+    width: 50px;
+    height: 50px;
+    padding: 0 !important;
+    min-width: 0px !important;
+    border-radius: 10000px !important;
+    outline: none !important;
+}
+
+.custom-button-round:focus{
+    outline: none !important;
+}
+
+.custom-button-submit{
+	background-color: #039be5 !important;
+}
+
+.custom-radio-button-active{
+	color: #039be5 !important;
+	height: auto !important;
+	width: auto !important;
+}
+
+.custom-radio-button-inactive{
+	color: #bababa !important;
+	height: auto !important;
+	width: auto !important;
+}
+
+.MuiSvgIcon-root-57{
+	width: 20px !important;
+	height: 20px !important;
+}
+
+.custom-text-area-edit{
+	resize: none;
+	padding: 5px;
+	outline: none;
+	width: 100%;
+}
+
+.custom-text-area-edit:focus{
+	outline: none;
+}
+
+.edit-header{
+	font-family: 'Raleway', sans-serif;
+	padding: 10px 5px;
+	font-size: 17px;
+	font-weight: bold;
+}*/
+
+.solution-card .ant-card-head .ant-card-head-wrapper .ant-card-head-title{
+	padding-bottom: 5px !important;
+}

@@ -1,0 +1,12 @@
+:root {
+	/* normal- 1024 - 1280, large- > 1280*/
+	--content-margin-small: 16px 8px;
+	--content-margin-normal: 20px 12px;
+	--content-margin-large: 32px 24px;
+	--rsb-width-small: 250px; /* rsb = right sidebar*/
+	--rsb-width-normal: 250px;
+	--rsb-width-large: 270px;
+	--rsb-margin-left-small: 10px;
+	--rsb-margin-left-normal: 12px;
+	--rsb-margin-left-large: 24px;
+}

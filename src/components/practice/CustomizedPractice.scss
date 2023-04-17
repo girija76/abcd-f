@@ -1,0 +1,7 @@
+.customized-practice-starter {
+	border: solid 1px #e6e7e8;
+	border-radius: 8px;
+	&.selected {
+		border-color: #aaa;
+	}
+}

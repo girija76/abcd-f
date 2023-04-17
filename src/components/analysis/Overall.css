@@ -1,0 +1,72 @@
+.rating-description-tooltip .ant-tooltip-inner {
+	background: #314658;
+	padding: 15px;
+	border-radius: 6px;
+}
+
+.rating-wrapper {
+	flex-direction: column;
+}
+
+.overall-na {
+	padding-top: 18px;
+}
+
+.overall-recommendation-wrapper {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.overall-weak-topic-list-item {
+	display: flex;
+	align-items: center;
+	border: solid 1px #dcdae0;
+	padding: 12px 16px;
+	border-radius: 10px;
+	justify-content: space-between;
+	margin: 8px 0;
+	font-size: 18px;
+	font-weight: 500;
+	color: #000;
+}
+
+.overall-parent-topic {
+	font-size: 0.75em;
+	color: #555;
+	margin-left: 0px;
+}
+
+.overall-recommendation-divider {
+	display: none;
+}
+
+.lock-wrapper {
+	padding: 64px 32px;
+}
+
+@media only screen and (min-width: 1200px) {
+	.overall-recommendation-divider {
+		display: block;
+	}
+
+	.overall-recommendation-wrapper {
+		flex-direction: row;
+	}
+}
+
+@media only screen and (min-width: 900px) {
+	.overall-na {
+		padding: 0px;
+	}
+
+	.lock-wrapper {
+		padding: 64px 64px;
+	}
+}
+
+@media only screen and (min-width: 1440px) {
+	.rating-wrapper {
+		flex-direction: row;
+	}
+}

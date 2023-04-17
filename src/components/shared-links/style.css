@@ -1,0 +1,26 @@
+.assessment-action-wrapper {
+	width: 100%;
+}
+
+.assessment-details-action-wrapper {
+	flex-direction: column;
+}
+
+.assessment-action-button-wrapper {
+	justify-content: center;
+}
+
+@media only screen and (min-width: 960px) {
+	.assessment-action-wrapper {
+		width: 280px;
+		margin: 24px;
+	}
+
+	.assessment-details-action-wrapper {
+		flex-direction: row;
+	}
+
+	.assessment-action-button-wrapper {
+		justify-content: flex-start;
+	}
+}

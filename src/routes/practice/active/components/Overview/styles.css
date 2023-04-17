@@ -1,0 +1,9 @@
+.active-session-overview .performance-wrapper {
+	display: block;
+}
+
+@media (max-width: 900px) {
+	.active-session-overview .performance-wrapper {
+		display: none;
+	}
+}

@@ -1,0 +1,26 @@
+.question-performance {
+	padding: 10px;
+	display: flex;
+	width: 100%;
+}
+
+.question-performance.incorrect-too-fast,
+.question-performance.incorrect-too-slow,
+.question-performance.incorrect-optimum {
+	color: #dd381d;
+	background-color: #ffd4cc;
+}
+.question-performance.correct-too-fast,
+.question-performance.correct-too-slow {
+	background: #b79e26;
+}
+
+.question-performance.correct-optimum {
+	background: #178567;
+}
+
+.question-performance-inner {
+	padding: 20px;
+	width: 100%;
+	font-weight: 600;
+}

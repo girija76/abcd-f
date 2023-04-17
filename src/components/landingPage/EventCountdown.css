@@ -1,0 +1,13 @@
+.nunito-font {
+	font-family: Nunito, sans-serif !important;
+}
+
+.vLine {
+	margin: 0px 12px;
+}
+
+@media (min-width: 1200px) {
+	.vLine {
+		margin: 0px 24px;
+	}
+}

@@ -1,0 +1,125 @@
+$border-color: #dcdae0;
+$spacing: 8px;
+.active-session-end {
+	&-button {
+		background: white;
+		color: #3c4043;
+		box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.16), 0 1px 2px 0 rgba(0, 0, 0, 0.26);
+		border: solid 1px $border-color;
+		padding: 0 2 * $spacing;
+		height: 42px;
+		border-radius: 2rem;
+		cursor: pointer;
+		font-family: Roboto;
+		font-size: 15px;
+	}
+	&-modal {
+		&-content {
+			background: #fff;
+			border: solid 1px $border-color;
+			border-radius: 5px;
+			min-width: 400px;
+			width: 600px;
+			max-width: 90%;
+			@media (max-width: 500px) {
+				min-width: auto;
+			}
+
+			.heading {
+				border-bottom: solid 1px $border-color;
+			}
+			.body {
+				font-family: 'nunito';
+				.message {
+					padding: 8px 16px;
+					border-bottom: solid 1px;
+					&.warn {
+						color: #ee9309;
+						background: #f4b4534d;
+					}
+				}
+				.number-list {
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: space-around;
+					align-items: space-around;
+					padding: $spacing 0;
+					.item {
+						text-align: center;
+						.content {
+							color: #000;
+							font-size: 18px;
+						}
+					}
+				}
+				.session-performance {
+					margin: 2 * $spacing;
+					display: flex;
+					justify-content: space-around;
+					text-align: center;
+				}
+				&-content {
+					padding: $spacing 2 * $spacing;
+					font-family: Helvetica, sans-serif, Arial;
+					font-size: 15px;
+				}
+			}
+			.footer {
+				display: flex;
+				justify-content: flex-end;
+				border-top: solid 1px $border-color;
+				.confirm-button,
+				.cancel-button {
+					border: solid 1px;
+					color: #777;
+					border-color: #aaa;
+					padding: $spacing 2 * $spacing;
+					background: transparent;
+					margin: 0 $spacing;
+					border-radius: 4px;
+					cursor: pointer;
+					&:hover {
+						background: #f5f5f5;
+					}
+					&[disabled] {
+						cursor: not-allowed;
+						&:hover {
+							background: initial;
+						}
+					}
+				}
+				.cancel-button {
+					border-color: transparent;
+				}
+			}
+			.heading,
+			.footer {
+				margin: 0;
+				padding: $spacing 2 * $spacing;
+			}
+		}
+		&-overlay {
+			position: fixed;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			left: 0px;
+			background-color: rgba(255, 255, 255, 0.75);
+			background-color: rgba(0, 0, 0, 0.75);
+			z-index: 1000;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}
+
+.note-instruction {
+	display: flex;
+}
+
+@media (max-width: 1024px) {
+	.note-instruction {
+		display: none;
+	}
+}

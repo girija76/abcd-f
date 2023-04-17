@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="manifest" href="/manifest.json" />
+		<link href="https://static.prepseed.com" rel="preconnect" crossorigin />
+		<link href="https://www.google-analytics.com" rel="preconnect" crossorigin />
+		<link href="https://fonts.googleapis.com" rel="preconnect" crossorigin />
+		<link href="https://prepseed.com" rel="preconnect" crossorigin />
+		<link href="https://www.prepseed.com" rel="preconnect" crossorigin />
+		<link href="https://storage.googleapis.com" rel="preconnect" crossorigin />
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=Array.prototype.includes%2CString.prototype.includes%2CObject.setPrototypeOf%2CObject.assign%2cArray.from%2cfetch%2cObject.values%2CArray.prototype.fill%2cObject.entries%2cURLSearchParams%2cURLSearchParams%2CIntersectionObserver%2CIntersectionObserverEntry"></script>
+		<link href="{{preconnect}}" rel="preconnect" />
+		<meta name="theme-color" content="#0AABDC" />
+		<link id="favicon" rel="shortcut icon" href="/favicon.ico" />
+		<link
+			href="https://s3.ap-south-1.amazonaws.com/avatars.prepleaf.com"
+			rel="preconnect"
+			crossorigin
+		/>
+		<script src="/config.js"></script>
+
+		<script>
+			if (window.location.search.indexOf('pwa=1') > -1) {
+				window.sessionStorage.setItem('isPwa', true);
+			}
+			if (window.config.isDummy) {
+				const searchParams = new URLSearchParams(window.location.search);
+				if (searchParams.get('d-logo')) {
+					const logo = searchParams.get('d-logo');
+					window.config.logoDark = logo;
+					window.config.tpCfg.logo = logo;
+					window.config.sidebarCfg.logo = logo;
+					window.config.sidebarCfg.logoSmall = logo;
+				}
+				if (searchParams.get('d-name')) {
+					window.config.name = searchParams.get('d-name');
+				}
+			}
+			const fbPixelId = '{{fbPixelId}}';
+			!(function(f, b, e, v, n, t, s) {
+				if (f.fbq) return;
+				n = f.fbq = function() {
+					n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+				};
+				if (!f._fbq) f._fbq = n;
+				n.push = n;
+				n.loaded = !0;
+				n.version = '2.0';
+				n.queue = [];
+				t = b.createElement(e);
+				t.async = !0;
+				t.src = v;
+				s = b.getElementsByTagName(e)[0];
+				s.parentNode.insertBefore(t, s);
+			})(
+				window,
+				document,
+				'script',
+				'https://connect.facebook.net/en_US/fbevents.js'
+			);
+			if (fbPixelId) {
+				fbq('init', fbPixelId);
+				fbq('track', 'PageView');
+			}
+			if (document.referrer.indexOf('android-app://') > -1) {
+				sessionStorage.setItem('twa', true);
+			}
+			function getLocalServerUrl(isCBT) {
+				const origin = window.location.origin;
+				const serverURL =
+					origin.split(':')[0] +
+					':' +
+					origin.split(':')[1] +
+					':' +
+					(isCBT ? 3009 : 4040) +
+					'/api';
+				return serverURL;
+			}
+			const environment = '%REACT_APP_ENV%';
+			const isDevelopment = environment === 'development';
+			window.isCBT = config.isCBT;
+			const devApiBaseUrl = getLocalServerUrl(window.isCBT);
+			const nonDevApiBaseUrl = config.apiEndpoint || '%REACT_APP_API_BASE_URL%';
+			window.apiBaseUrl =
+				isDevelopment || isCBT ? devApiBaseUrl : nonDevApiBaseUrl;
+			window.apiCacheBaseUrl =
+				isDevelopment || isCBT ? window.apiBaseUrl : '%REACT_APP_CF_API_BASE_URL%';
+			const canCacheUserApiResponse =
+				environment !== 'development' && config.cacheUserApiResponse;
+			const isProduction = environment === 'production';
+			const backendUsers =
+				(!isProduction || !config.apiEndpoint || isCBT
+					? window.apiBaseUrl
+					: config.apiEndpoint) + '/users';
+
+			window.isFetchingUser = true;
+			window.userDataFetched = {};
+
+			const currentSupergroup = window.localStorage.getItem('currentSupergroup');
+
+			const cookie = document.cookie;
+
+			if (cookie || config.cookieNotRequired) {
+				const oldUserApiResponse = JSON.parse(
+					sessionStorage.getItem('userApiResponse')
+				);
+				if (
+					canCacheUserApiResponse &&
+					oldUserApiResponse &&
+					oldUserApiResponse.ok &&
+					oldUserApiResponse.fetchedAt + 15 * 60 * 1000 > Date.now()
+				) {
+					window.isFetchingUser = false;
+					const event = new CustomEvent('updateUser', {
+						detail: oldUserApiResponse,
+					});
+					window.dispatchEvent(event);
+					window.userApiResponse = event;
+				} else {
+					fetch(
+						backendUsers +
+							'?portal=preparation&supergroup=' +
+							(currentSupergroup || ''),
+						{
+							method: 'POST',
+							headers: {
+								Accept: 'application/json',
+							},
+							credentials: 'include',
+						}
+					)
+						.then(function(response) {
+							response
+								.json()
+								.then(function(json) {
+									window.isFetchingUser = false;
+									const { status, ok } = response;
+									const detail = { status, ok, json, fetchedAt: Date.now() };
+									const event = new CustomEvent('updateUser', { detail });
+									window.dispatchEvent(event);
+									window.userApiResponse = event;
+									if (ok && status === 200) {
+										window.sessionStorage.setItem(
+											'userApiResponse',
+											JSON.stringify(detail)
+										);
+									}
+								})
+								.catch(() => {});
+						})
+						.catch(function(error) {
+							window.isFetchingUser = false;
+							const event = new CustomEvent('updateUser', { detail: undefined });
+							window.dispatchEvent(event);
+							window.userApiResponse = event;
+						}); // network error
+				}
+			} else {
+				window.isFetchingUser = false;
+				const event = new CustomEvent('updateUser', { detail: undefined });
+				window.dispatchEvent(event);
+				window.userApiResponse = event;
+			}
+			if (config.favicon) {
+				const faviconElem = document.getElementById('favicon');
+				if (faviconElem) {
+					faviconElem.setAttribute('href', config.favicon);
+				}
+			}
+		</script>
+		<meta
+			http-equiv="Cache-control"
+			content="no-cache"
+			Cache-Control="must-revalidate"
+		/>
+		<meta
+			id="preparation-portal-viewport"
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		%REACT_APP_DEV_TOOLS_SCRIPT%
+
+		<!-- <link href="%PUBLIC_URL%/index.css" rel="stylesheet" /> -->
+		<style>
+			@font-face {
+				font-family: Comfortaa;
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: url(https://fonts.gstatic.com/s/comfortaa/v28/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMDr4fJh1Zyc61YBlG.woff)
+					format('woff');
+				unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
+					U+FE2E-FE2F;
+			}
+			@font-face {
+				font-family: Comfortaa;
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: url(https://fonts.gstatic.com/s/comfortaa/v28/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMDrcfJh1Zyc61YBlG.woff)
+					format('woff');
+				unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+			}
+			@font-face {
+				font-family: Comfortaa;
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: url(https://fonts.gstatic.com/s/comfortaa/v28/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMDrAfJh1Zyc61YBlG.woff)
+					format('woff');
+				unicode-range: U+0370-03FF;
+			}
+			@font-face {
+				font-family: Comfortaa;
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: url(https://fonts.gstatic.com/s/comfortaa/v28/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMDrwfJh1Zyc61YBlG.woff)
+					format('woff');
+				unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+					U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+			}
+			@font-face {
+				font-family: Comfortaa;
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: url(https://fonts.gstatic.com/s/comfortaa/v28/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMDr0fJh1Zyc61YBlG.woff)
+					format('woff');
+				unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+					U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+			}
+			@font-face {
+				font-family: Comfortaa;
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: url(https://fonts.gstatic.com/s/comfortaa/v28/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMDrMfJh1Zyc61YA.woff)
+					format('woff');
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+					U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+					U+FEFF, U+FFFD;
+			}
+
+			@font-face {
+				font-family: Raleway;
+				font-style: normal;
+				font-weight: 600;
+				font-display: swap;
+				src: local('Raleway SemiBold'), local('Raleway-SemiBold'),
+					url(https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwPIsWqhPANqczVsq4A.woff2)
+						format('woff2');
+				unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+					U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+			}
+			@font-face {
+				font-family: Raleway;
+				font-style: normal;
+				font-weight: 600;
+				font-display: swap;
+				src: local('Raleway SemiBold'), local('Raleway-SemiBold'),
+					url(https://fonts.gstatic.com/s/raleway/v14/1Ptrg8zYS_SKggPNwPIsWqZPANqczVs.woff2)
+						format('woff2');
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+					U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+					U+FEFF, U+FFFD;
+			}
+
+			@font-face {
+				font-family: Oswald;
+				font-style: normal;
+				font-weight: 500;
+				font-display: swap;
+				src: url(https://fonts.gstatic.com/s/oswald/v30/TK3_WkUHHAIjg75cFRf3bXL8LICs18NvsUtiYySUhiCXABTV.woff)
+					format('woff');
+				unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
+					U+FE2E-FE2F;
+			}
+			@font-face {
+				font-family: Oswald;
+				font-style: normal;
+				font-weight: 500;
+				font-display: swap;
+				src: url(https://fonts.gstatic.com/s/oswald/v30/TK3_WkUHHAIjg75cFRf3bXL8LICs18NvsUJiYySUhiCXABTV.woff)
+					format('woff');
+				unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+			}
+			@font-face {
+				font-family: Oswald;
+				font-style: normal;
+				font-weight: 500;
+				font-display: swap;
+				src: url(https://fonts.gstatic.com/s/oswald/v30/TK3_WkUHHAIjg75cFRf3bXL8LICs18NvsUliYySUhiCXABTV.woff)
+					format('woff');
+				unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+					U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+			}
+			@font-face {
+				font-family: Oswald;
+				font-style: normal;
+				font-weight: 500;
+				font-display: swap;
+				src: url(https://fonts.gstatic.com/s/oswald/v30/TK3_WkUHHAIjg75cFRf3bXL8LICs18NvsUhiYySUhiCXABTV.woff)
+					format('woff');
+				unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+					U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+			}
+			@font-face {
+				font-family: Oswald;
+				font-style: normal;
+				font-weight: 500;
+				font-display: swap;
+				src: url(https://fonts.gstatic.com/s/oswald/v30/TK3_WkUHHAIjg75cFRf3bXL8LICs18NvsUZiYySUhiCXAA.woff)
+					format('woff');
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+					U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+					U+FEFF, U+FFFD;
+			}
+
+			@font-face {
+				font-family: Nunito;
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: local('Nunito Regular'), local('Nunito-Regular'),
+					url(https://fonts.gstatic.com/s/nunito/v12/XRXV3I6Li01BKofIOOaBTMnFcQIG.woff2)
+						format('woff2');
+				unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
+					U+FE2E-FE2F;
+			}
+			@font-face {
+				font-family: Nunito;
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: local('Nunito Regular'), local('Nunito-Regular'),
+					url(https://fonts.gstatic.com/s/nunito/v12/XRXV3I6Li01BKofIMeaBTMnFcQIG.woff2)
+						format('woff2');
+				unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+			}
+			@font-face {
+				font-family: Nunito;
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: local('Nunito Regular'), local('Nunito-Regular'),
+					url(https://fonts.gstatic.com/s/nunito/v12/XRXV3I6Li01BKofIOuaBTMnFcQIG.woff2)
+						format('woff2');
+				unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+					U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+			}
+			@font-face {
+				font-family: Nunito;
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: local('Nunito Regular'), local('Nunito-Regular'),
+					url(https://fonts.gstatic.com/s/nunito/v12/XRXV3I6Li01BKofIO-aBTMnFcQIG.woff2)
+						format('woff2');
+				unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+					U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+			}
+			@font-face {
+				font-family: Nunito;
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: local('Nunito Regular'), local('Nunito-Regular'),
+					url(https://fonts.gstatic.com/s/nunito/v12/XRXV3I6Li01BKofINeaBTMnFcQ.woff2)
+						format('woff2');
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+					U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+					U+FEFF, U+FFFD;
+			}
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: local('Open Sans Regular'), local('OpenSans-Regular'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFWJ0bf8pkAp6a.woff2)
+						format('woff2');
+				unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
+					U+FE2E-FE2F;
+			}
+			/* cyrillic */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: local('Open Sans Regular'), local('OpenSans-Regular'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFUZ0bf8pkAp6a.woff2)
+						format('woff2');
+				unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+			}
+			/* greek-ext */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: local('Open Sans Regular'), local('OpenSans-Regular'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFWZ0bf8pkAp6a.woff2)
+						format('woff2');
+				unicode-range: U+1F00-1FFF;
+			}
+			/* greek */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: local('Open Sans Regular'), local('OpenSans-Regular'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFVp0bf8pkAp6a.woff2)
+						format('woff2');
+				unicode-range: U+0370-03FF;
+			}
+			/* vietnamese */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: local('Open Sans Regular'), local('OpenSans-Regular'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFWp0bf8pkAp6a.woff2)
+						format('woff2');
+				unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+					U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+			}
+			/* latin-ext */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: local('Open Sans Regular'), local('OpenSans-Regular'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFW50bf8pkAp6a.woff2)
+						format('woff2');
+				unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+					U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+			}
+			/* latin */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 400;
+				font-display: swap;
+				src: local('Open Sans Regular'), local('OpenSans-Regular'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem8YaGs126MiZpBA-UFVZ0bf8pkAg.woff2)
+						format('woff2');
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+					U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+					U+FEFF, U+FFFD;
+			}
+			/* cyrillic-ext */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 600;
+				font-display: swap;
+				src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UNirkOX-hpKKSTj5PW.woff2)
+						format('woff2');
+				unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
+					U+FE2E-FE2F;
+			}
+			/* cyrillic */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 600;
+				font-display: swap;
+				src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UNirkOVuhpKKSTj5PW.woff2)
+						format('woff2');
+				unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+			}
+			/* greek-ext */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 600;
+				font-display: swap;
+				src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UNirkOXuhpKKSTj5PW.woff2)
+						format('woff2');
+				unicode-range: U+1F00-1FFF;
+			}
+			/* greek */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 600;
+				font-display: swap;
+				src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UNirkOUehpKKSTj5PW.woff2)
+						format('woff2');
+				unicode-range: U+0370-03FF;
+			}
+			/* vietnamese */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 600;
+				font-display: swap;
+				src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UNirkOXehpKKSTj5PW.woff2)
+						format('woff2');
+				unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+					U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+			}
+			/* latin-ext */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 600;
+				font-display: swap;
+				src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UNirkOXOhpKKSTj5PW.woff2)
+						format('woff2');
+				unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+					U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+			}
+			/* latin */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 600;
+				font-display: swap;
+				src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UNirkOUuhpKKSTjw.woff2)
+						format('woff2');
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+					U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+					U+FEFF, U+FFFD;
+			}
+			/* cyrillic-ext */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 700;
+				font-display: swap;
+				src: local('Open Sans Bold'), local('OpenSans-Bold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UN7rgOX-hpKKSTj5PW.woff2)
+						format('woff2');
+				unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F,
+					U+FE2E-FE2F;
+			}
+			/* cyrillic */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 700;
+				font-display: swap;
+				src: local('Open Sans Bold'), local('OpenSans-Bold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UN7rgOVuhpKKSTj5PW.woff2)
+						format('woff2');
+				unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+			}
+			/* greek-ext */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 700;
+				font-display: swap;
+				src: local('Open Sans Bold'), local('OpenSans-Bold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UN7rgOXuhpKKSTj5PW.woff2)
+						format('woff2');
+				unicode-range: U+1F00-1FFF;
+			}
+			/* greek */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 700;
+				font-display: swap;
+				src: local('Open Sans Bold'), local('OpenSans-Bold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UN7rgOUehpKKSTj5PW.woff2)
+						format('woff2');
+				unicode-range: U+0370-03FF;
+			}
+			/* vietnamese */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 700;
+				font-display: swap;
+				src: local('Open Sans Bold'), local('OpenSans-Bold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UN7rgOXehpKKSTj5PW.woff2)
+						format('woff2');
+				unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+					U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+			}
+			/* latin-ext */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 700;
+				font-display: swap;
+				src: local('Open Sans Bold'), local('OpenSans-Bold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UN7rgOXOhpKKSTj5PW.woff2)
+						format('woff2');
+				unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+					U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+			}
+			/* latin */
+			@font-face {
+				font-family: 'Open Sans';
+				font-style: normal;
+				font-weight: 700;
+				font-display: swap;
+				src: local('Open Sans Bold'), local('OpenSans-Bold'),
+					url(https://fonts.gstatic.com/s/opensans/v17/mem5YaGs126MiZpBA-UN7rgOUuhpKKSTjw.woff2)
+						format('woff2');
+				unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+					U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+					U+FEFF, U+FFFD;
+			}
+
+			/* index.css starts */
+
+			@import url('https://fonts.googleapis.com/css?family=Raleway:600');
+
+			.ant-layout-header {
+				height: auto !important;
+			}
+
+			.prepleaf-slider {
+				background-color: #1d2021 !important;
+				display: none !important;
+				padding-bottom: 60px !important;
+			}
+
+			.dashboard-scroll-root {
+				margin-left: 0;
+			}
+
+			.ant-layout-sider-trigger {
+				background-color: #282828 !important;
+			}
+
+			.ant-menu-submenu-title {
+				padding-left: 24px !important;
+			}
+
+			.ant-menu-dark,
+			.ant-menu-dark .ant-menu-sub {
+				background-color: #1d2021 !important;
+			}
+
+			.custom-input::placeholder {
+				color: #a0a0a0 !important;
+			}
+
+			.prepleaf-text-field {
+				box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 1px 1px !important;
+				border-radius: 4px !important;
+				padding: 10px 10px !important;
+			}
+
+			.prepleaf-label {
+				margin: -3px 0px !important;
+			}
+
+			.prepleaf-button {
+				background-color: #039be5 !important;
+			}
+
+			.prepleaf-checkbox {
+				width: 32px !important;
+				height: 24px !important;
+			}
+
+			.custom-button-success {
+				color: #039be5 !important;
+			}
+
+			.button-progress {
+				color: #039be5 !important;
+				position: absolute !important;
+				top: 50% !important;
+				left: 50% !important;
+				margin-top: -12px !important;
+				margin-left: -12px !important;
+			}
+
+			.button-margin {
+				margin: 0px 10px !important;
+			}
+
+			.confirm-text {
+				font-family: 'Raleway', sans-serif !important;
+				padding-top: 10px !important;
+				padding-left: 5px !important;
+				font-size: 17px !important;
+				font-weight: bold !important;
+			}
+
+			.confirm-button-submit {
+				background-color: #039be5 !important;
+			}
+
+			.test-summary-heading {
+				font-family: 'Raleway', sans-serif !important;
+				font-size: 20px !important;
+				font-weight: bold !important;
+				margin-bottom: 10px !important;
+			}
+
+			.prepleaf-table-container {
+				border: 1px solid #039be5 !important;
+			}
+
+			.number {
+				font-family: 'Oswald', sans-serif !important;
+			}
+
+			.prepleaf-column {
+				text-align: center !important;
+			}
+
+			/* .leaderboard-card-home{
+	width: 250px;
+} */
+
+			.content-wrapper {
+				margin: var(--content-margin-normal) !important;
+				padding-bottom: 82px;
+				width: -webkit-fill-available;
+			}
+
+			@media (max-width: 890px) {
+				.content-wrapper.no-margin {
+					margin: 0px !important;
+				}
+				.content-wrapper.no-margin > .ant-card-bordered {
+					border: none;
+					border-radius: 0px !important;
+				}
+			}
+
+			.session-list-wrapper {
+				margin: var(--content-margin-normal) !important;
+				padding-bottom: 82px;
+				width: -webkit-fill-available;
+			}
+
+			.rsb {
+				/* rsb = right side bar*/
+				width: var(--rsb-width-small) !important;
+				margin-left: var(--rsb-margin-left-small) !important;
+			}
+
+			@media (max-width: 1290px) {
+				.content-and-rsb-container {
+					flex-wrap: wrap;
+				}
+				.lsb {
+					flex: 1;
+				}
+				.rsb {
+					width: 100% !important;
+					margin-left: 0 !important;
+					margin-top: var(--rsb-margin-left-small) !important;
+				}
+			}
+
+			.practice-card {
+				width: calc(
+					100% - var(--rsb-width-small) - var(--rsb-margin-left-small)
+				) !important;
+			}
+
+			.compete-card {
+				width: calc(
+					100% - var(--rsb-width-small) - var(--rsb-margin-left-small)
+				) !important;
+			}
+
+			.analysis-card {
+				width: calc(
+					100% - var(--rsb-width-small) - var(--rsb-margin-left-small)
+				) !important;
+			}
+
+			.goal-data {
+				margin: 10px 5px 20px 10px !important;
+			}
+
+			.quick-link {
+				margin: 12px 20px !important;
+			}
+
+			.analysis-activity-session-navigator {
+				display: flex !important;
+			}
+
+			.mobile-only {
+				display: block;
+			}
+
+			.desktop-only {
+				display: none;
+			}
+
+			.desktop-only-flex {
+				display: none !important;
+			}
+
+			.plus-700-only {
+				display: none;
+			}
+
+			.plus-1200-only {
+				display: none;
+			}
+
+			@media only screen and (min-width: 700px) {
+				.plus-700-only {
+					display: block;
+				}
+			}
+
+			@media only screen and (min-width: 1200px) {
+				.plus-1200-only {
+					display: block;
+				}
+			}
+
+			@media only screen and (min-width: 900px) {
+				.content-wrapper {
+					padding-bottom: 0px !important;
+				}
+
+				.session-list-wrapper {
+					margin: 0 !important;
+					padding-bottom: 0;
+					width: -webkit-fill-available;
+				}
+
+				.prepleaf-slider {
+					display: block !important;
+				}
+				.dashboard-scroll-root:not(.always-visible) {
+					margin-left: 200px;
+				}
+				.dashboard-scroll-root.when-sider-collapsed:not(.always-visible) {
+					margin-left: 80px;
+				}
+
+				.analysis-activity-session-navigator {
+					display: none !important;
+				}
+
+				.mobile-only {
+					display: none !important;
+				}
+
+				.desktop-only {
+					display: block;
+				}
+
+				.desktop-only-flex {
+					display: flex;
+				}
+			}
+
+			@media only screen and (min-width: 960px) {
+				.content-wrapper {
+					margin: var(--content-margin-normal) !important;
+				}
+
+				.rsb {
+					width: var(--rsb-width-normal) !important;
+					margin-left: var(--rsb-margin-left-normal) !important;
+				}
+
+				.practice-card {
+					width: calc(
+						100% - var(--rsb-width-normal) - var(--rsb-margin-left-normal)
+					) !important;
+				}
+
+				.compete-card {
+					width: calc(
+						100% - var(--rsb-width-normal) - var(--rsb-margin-left-normal)
+					) !important;
+				}
+
+				.analysis-card {
+					width: calc(
+						100% - var(--rsb-width-normal) - var(--rsb-margin-left-normal)
+					) !important;
+				}
+			}
+
+			@media only screen and (min-width: 1280px) {
+				.content-wrapper {
+					margin: var(--content-margin-large) !important;
+				}
+
+				.rsb {
+					width: var(--rsb-width-large) !important;
+					margin-left: var(--rsb-margin-left-large) !important;
+				}
+
+				.practice-card {
+					width: calc(
+						100% - var(--rsb-width-large) - var(--rsb-margin-left-large)
+					) !important;
+				}
+
+				.compete-card {
+					width: calc(
+						100% - var(--rsb-width-large) - var(--rsb-margin-left-large)
+					) !important;
+				}
+
+				.analysis-card {
+					width: calc(
+						100% - var(--rsb-width-large) - var(--rsb-margin-left-large)
+					) !important;
+				}
+
+				.goal-data {
+					margin: 10px 20px 20px 30px !important;
+				}
+
+				.quick-link {
+					margin: 12px 24px !important;
+				}
+			}
+
+			@media only screen and (min-width: 1200px) {
+				/* For desktop: */
+				/* .analysis-card{
+		width: calc(100% - 300px);
+	} */
+
+				/* .leaderboard-card-home{
+		width: 300px;
+	} */
+			}
+
+			.blog-link-wrapper:hover .blog-link {
+				color: #039be5 !important;
+				text-decoration: underline !important;
+			}
+
+			.heatmap-rect-0 {
+				fill: #dadada !important;
+			}
+
+			/*.ant-list-items {*/
+			/*width: 100% !important;*/
+			/*display: flex !important;*/
+			/*flex-wrap: wrap !important;*/
+			/*flex-direction: column !important;*/
+			/*justify-content: inherit !important;*/
+			/*}*/
+
+			.ant-list-item {
+				/*flex-direction: column !important;*/
+				justify-content: inherit !important;
+				align-items: baseline !important;
+			}
+
+			:root {
+				/* normal- 1024 - 1280, large- > 1280*/
+				--content-margin-small: 16px 8px;
+				--content-margin-normal: 20px 12px;
+				--content-margin-large: 32px 24px;
+				--rsb-width-small: 250px; /* rsb = right sidebar*/
+				--rsb-width-normal: 250px;
+				--rsb-width-large: 250px;
+				--rsb-margin-left-small: 10px;
+				--rsb-margin-left-normal: 12px;
+				--rsb-margin-left-large: 24px;
+			}
+
+			*::-webkit-scrollbar {
+				display: none;
+			}
+			/* index.css ends */
+		</style>
+
+		<!-- <meta
+			name="keywords"
+			content="Placement,Puzzle,Aptitude,Quant,LRDI,Verbal Reasoning,VARC,Free,Topic Tests,Sectional Tests,Mock Test,Practice,2019,2020,Questions,CAT,GATE,MBA Preparation,Engineering,Online,Career,Entrance Exam,Preparation,Test Series,Test"
+		/> -->
+		<!-- <meta name="description" content="{{metaDescription}}" /> -->
+		<script>
+			function setViewport() {
+				if (screen.width < 1024) {
+					var viewport = document.getElementById('preparation-portal-viewport');
+
+					const isPwa = window.sessionStorage.getItem('isPwa');
+					if (window.location.pathname === '/' && isPwa) {
+						// do nothing
+					} else if (
+						window.location.pathname === '/' ||
+						window.location.pathname.indexOf('/complete-profile') !== -1 ||
+						window.location.pathname.indexOf('/registration') > -1
+					) {
+						viewport.setAttribute(
+							'content',
+							'initial-scale=' + window.screen.width / 500 + ',width=500'
+						);
+					} else if (
+						(window.location.pathname.indexOf('/livetest/') !== -1 ||
+							window.location.pathname.indexOf('/reviewQuestions') !== -1 ||
+							window.location.pathname.indexOf('/practice/') === 0) &&
+						window.screen.width < 500
+					) {
+						viewport.setAttribute(
+							'content',
+							'initial-scale=' + window.screen.width / 500 + ',width=500'
+						);
+					} else if (window.screen.width < 500) {
+						viewport.setAttribute(
+							'content',
+							'initial-scale=' + window.screen.width / 500 + ',width=500'
+						);
+					}
+				}
+			}
+			//||
+			//window.onload = setViewport;
+		</script>
+		<script>
+			window.googleAnalyticsUAId = '%REACT_APP_GOOGLE_ANALYTICS_ID%';
+		</script>
+		<script>
+			window.onSupergroupChange = function() {
+				try {
+					const id = window.localStorage.getItem('currentSupergroup');
+					const identifier =
+						{
+							'5d10e42744c6e111d0a17d0a': 'jobs',
+							'5d10e43944c6e111d0a17d0c': 'cat',
+							'5dd95e8097bc204881be3f2c': 'iit-jee',
+						}[id] || id;
+					ga('set', 'dimension1', identifier);
+				} catch (e) {}
+			};
+			window.addEventListener('authChange', function(e) {
+				try {
+					if (e.detail.type === 'success') {
+						var userId = e.detail.userId;
+						if (userId) {
+							window.ga('set', 'userId', userId);
+						}
+					} else {
+						window.ga('set', 'userId');
+					}
+					ga('send', {
+						hitType: 'event',
+						eventCategory: 'authentication',
+						eventAction: 'set-user',
+						eventLabel: e.detail.label || e.detail.type,
+						nonInteraction: true,
+					});
+					const firstName = (e.detail.name ? e.detail.name.split(' ')[0] : '') || '';
+					const lastName = (e.detail.name ? e.detail.name.split(' ')[1] : '') || '';
+					fbq &&
+						fbq('init', fbPixelId, {
+							em: e.detail.email,
+							external_id: e.detail.userId,
+							ph: e.detail.mobileNumber,
+							fn: firstName.toLowerCase(),
+							ln: lastName.toLowerCase(),
+						});
+				} catch (e) {}
+			});
+			window.ga =
+				window.ga ||
+				function() {
+					(ga.q = ga.q || []).push(arguments);
+				};
+			ga.l = +new Date();
+			ga('create', googleAnalyticsUAId, 'auto');
+			var cleanUrlTrackerOptions = {
+				stripQuery: true,
+				indexFilename: 'index.html',
+				trailingSlash: 'remove',
+				urlFieldsFilter: function(fieldsObject, parseUrl) {
+					var toReturn = Object.assign({}, fieldsObject);
+					if (fieldsObject.page === '') {
+						toReturn.page = '/';
+					} else if (/\/livetest\//.test(fieldsObject.page)) {
+						toReturn.page = '/livetest';
+					}
+					return toReturn;
+				},
+			};
+			var eventTrackerOptions = {
+				events: ['click', 'auxclick', 'mouseenter'],
+				attributePrefix: 'data-ga-',
+			};
+			var impressionTrackerOptions = {
+				elements: [
+					{ id: 'enroll-now-cta', threshold: 1, trackFirstImpressionOnly: false },
+					{
+						id: 'main-page-footer-registration',
+						threshold: 1,
+						trackFirstImpressionOnly: false,
+					},
+				],
+			};
+			var outboundLinkTrackerOptions = {};
+			ga('require', 'cleanUrlTracker', cleanUrlTrackerOptions);
+			ga('require', 'urlChangeTracker');
+			ga('require', 'eventTracker', eventTrackerOptions);
+			ga('require', 'outboundLinkTracker', outboundLinkTrackerOptions);
+			ga('require', 'impressionTracker', impressionTrackerOptions);
+			ga('send', 'pageview');
+		</script>
+		<title>
+			{{title}}
+		</title>
+		<script>
+			if (window.location.pathname.indexOf('/demo/placement') !== -1) {
+				window.document.title = 'Prepare Aptitude for Placements & Jobs';
+			} else if (window.location.pathname.indexOf('/demo/cat') !== -1) {
+				window.document.title = 'Prepare for CAT, XAT, NMAT, SNAP';
+			} else if (window.location.pathname.indexOf('/demo/jee') !== -1) {
+				window.document.title = 'Prepare for IIT JEE- Physics, Chemistry, Maths';
+			} else {
+				window.document.title =
+					config.metaData.landingPage.title ||
+					'Preparation Portal - Prepare for IIT-JEE, CAT and Jobs';
+			}
+		</script>
+	</head>
+	<body>
+		<noscript>
+			You need to enable JavaScript to run this app.
+		</noscript>
+		<div id="root"></div>
+		<div id="logout-modal-tree"></div>
+	</body>
+	<!-- <script
+		defer
+		async
+		src="https://www.google-analytics.com/analytics.js"
+	></script> -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script
+		async
+		src="https://www.googletagmanager.com/gtag/js?id=G-KQQXZBX39T"
+	></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'G-KQQXZBX39T');
+	</script>
+	<script
+		defer
+		async
+		src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js"
+	></script>
+</html>

@@ -1,0 +1,17 @@
+.tests-wrapper-mobile {
+	display: block;
+}
+
+.tests-wrapper-desktop {
+	display: none;
+}
+
+@media only screen and (min-width: 900px) {
+	.tests-wrapper-mobile {
+		display: none;
+	}
+
+	.tests-wrapper-desktop {
+		display: block;
+	}
+}

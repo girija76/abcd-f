@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+.progress-bar {
+	background-color: #e7eeef;
+	border-radius: 10px;
+}
+
+.progressbar-progress {
+	border-radius: 10px;
+}
+
+.compete-header {
+	display: flex;
+	margin-left: 20px;
+	font-family: 'Raleway', sans-serif;
+	font-size: 20px;
+	padding: 0px 5px;
+}
+
+.compete-header-true {
+	color: #212529;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.compete-header-false {
+	color: #c0c0c0;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.compete-header-true:hover {
+	color: #212529;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.compete-header-false:hover {
+	color: #212529;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/* .compete-card{*/
+/* width: calc(100% - 260px); */
+/*width: 100%;*/
+/*} */
+
+.compete-desktop-wrapper {
+	display: none;
+}
+
+.compete-mobile-wrapper {
+	display: block;
+}
+
+@media only screen and (min-width: 900px) {
+	.compete-desktop-wrapper {
+		display: block;
+	}
+
+	.compete-mobile-wrapper {
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	/* For desktop: */
+	/* .compete-card{
+		width: calc(100% - 300px);
+	} */
+}

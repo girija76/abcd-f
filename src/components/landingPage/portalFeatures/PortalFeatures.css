@@ -1,0 +1,133 @@
+.nunito-font {
+	font-family: Nunito, sans-serif !important;
+}
+
+.portal-features-wrapper {
+	font-family: Nunito, sans-serif !important;
+	margin: 0px 92px;
+}
+
+.portal-features-image {
+	width: 300px;
+}
+
+.product-subwrapper {
+	flex-direction: row;
+}
+
+.product-subwrapper-reverse {
+	flex-direction: row;
+}
+
+.product-subwrapper-reverse .margin-right {
+	margin-right: 12px;
+}
+
+.product-subwrapper-reverse .margin-left {
+	margin-left: 18px;
+}
+
+.product-subwrapper .margin-right {
+	margin-right: 12px;
+}
+
+.product-subwrapper .margin-left {
+	margin-left: 18px;
+}
+
+.product-subwrapper-text {
+	margin-right: 18px;
+}
+
+.last-product {
+	margin-top: 128px !important;
+}
+
+.prepzone-banner {
+	width: 400px !important;
+	max-width: 400px !important;
+}
+
+.prepzone-banner .ant-modal-body {
+	padding: 12px;
+	padding-bottom: 24px;
+	background-color: #3089cb;
+}
+
+.prepzone-banner .ant-modal-close {
+	color: white;
+}
+
+@media (min-width: 1200px) {
+	.portal-features-wrapper {
+		margin: 0px 128px;
+	}
+
+	.portal-features-image {
+		width: 330px;
+	}
+}
+
+@media (min-width: 1440px) {
+	.portal-features-wrapper {
+		margin: 0px 192px;
+	}
+
+	.portal-features-image {
+		width: 360px;
+	}
+}
+
+@media (max-width: 1024px) {
+	.product-subwrapper {
+		flex-direction: column;
+	}
+
+	.product-subwrapper-reverse {
+		flex-direction: column-reverse;
+		margin-top: 64px !important;
+	}
+
+	.product-subwrapper-reverse .margin-right {
+		margin-right: 0px;
+		margin-top: 24px;
+	}
+
+	.product-subwrapper-reverse .margin-left {
+		margin-left: 0px;
+		margin-top: 24px;
+	}
+
+	.product-subwrapper .margin-right {
+		margin-right: 0px;
+		margin-top: 24px;
+	}
+
+	.product-subwrapper .margin-left {
+		margin-left: 0px;
+		margin-top: 24px;
+	}
+
+	.product-subwrapper-text {
+		margin-right: 0px;
+	}
+
+	.last-product {
+		margin-top: 64px !important;
+	}
+
+	.portal-features-image {
+		width: 260px;
+	}
+
+	.portal-features-wrapper {
+		margin: 0px 42px;
+	}
+}
+
+@media (min-width: 900px) {
+	.prepzone-banner {
+		width: 500px !important;
+		max-width: 500px !important;
+	}
+}

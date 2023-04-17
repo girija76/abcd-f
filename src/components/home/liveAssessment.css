@@ -1,0 +1,9 @@
+.home-live-assessment-divider {
+	display: none;
+}
+
+@media (max-width: 1000px) {
+	.home-live-assessment-divider {
+		display: block;
+	}
+}

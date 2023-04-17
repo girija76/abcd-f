@@ -1,0 +1,46 @@
+.styles_closeButton__20ID4 {
+	cursor: pointer;
+}
+
+.test-status {
+	font-size: 14px;
+	transition: 5s;
+}
+
+.instructions-modal .ant-modal-content .ant-modal-header {
+	border: 0 !important;
+	padding-bottom: 0px !important;
+}
+
+.instructions-modal {
+	/*width: auto !important;*/
+	/*margin: 10px;*/
+}
+
+.testlink-content {
+	display: flex;
+	flex-wrap: nowrap;
+	cursor: pointer;
+}
+
+@media (max-width: 900px) {
+	.testlink-content {
+		flex-direction: column;
+	}
+	.testlink-content .divider {
+		display: none;
+	}
+}
+
+@media (min-width: 900px) {
+	.testlink-content {
+		flex-direction: column;
+	}
+	.testlink-content .divider {
+		display: none;
+	}
+
+	.instructions-modal {
+		min-width: 620px !important;
+	}
+}

@@ -1,0 +1,69 @@
+.home-last-activity-container {
+	display: flex;
+	align-items: center;
+}
+
+.home-last-activity-container .text-container {
+	flex: 1;
+	padding-left: 24px;
+}
+.home-last-activity-container .text-container.less-padding {
+	padding-left: 12px;
+}
+
+.course-plan-modal {
+	width: 960px !important;
+}
+
+.course-plan-table {
+	border: 1px solid #dadada;
+	border-radius: 4px;
+}
+
+.course-plan-table .ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+	min-width: 90px;
+}
+
+.prize-winner-table .ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+	min-width: auto;
+}
+
+.colored-row-a1c9a1 {
+	background: #a1c9a1;
+}
+
+.ant-table tbody > tr.colored-row-a1c9a1:hover > td {
+	background: #a1c9a1 !important;
+}
+
+.colored-row-ffd5d5 {
+	background: #ffd5d5;
+}
+
+.ant-table tbody > tr.colored-row-ffd5d5:hover > td {
+	background: #ffd5d5 !important;
+}
+
+@media (max-width: 680px) {
+	.home-last-activity-container {
+		flex-wrap: wrap;
+		justify-content: center;
+		flex-direction: column;
+	}
+	.home-last-activity-container .continue-button {
+		margin-top: 15px;
+	}
+	.home-last-activity-container .text-container {
+		flex: 0;
+		text-align: center;
+		padding-left: 0;
+	}
+}
+
+@media only screen and (max-width: 900px) {
+	.dummy {
+		flex-direction: column;
+	}
+}

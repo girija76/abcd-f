@@ -1,0 +1,9 @@
+.testlevel-na {
+	margin-top: 0px;
+}
+
+@media (max-width: 500px) {
+	.testlevel-na {
+		margin-top: 18px;
+	}
+}

@@ -1,0 +1,4 @@
+.topic-tests-mobile-buttons-wrapper .ant-list-items {
+	display: flex;
+	overflow-x: scroll;
+}

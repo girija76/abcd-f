@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:600');
+
+.practice-dash-header {
+	margin-left: 20px;
+	font-family: 'Raleway', sans-serif;
+	font-size: 20px;
+	padding: 10px 5px;
+	font-weight: bold;
+	flex: 1;
+}
+
+.review-test-wrapper {
+	margin-top: 0px;
+}
+
+.question-discussion-wrapper {
+	width: calc(100% - 320px);
+}
+
+.back-wrapper {
+	margin: 20px;
+	width: 280px;
+}
+
+@media (max-width: 1024px) {
+	.review-test-wrapper {
+		flex-direction: column;
+		margin-top: 0px;
+	}
+
+	.question-discussion-wrapper {
+		width: 100%;
+	}
+
+	.discussion-wrapper {
+		padding: 20px 10px;
+		margin-bottom: 70px;
+	}
+
+	.back-stats-wrapper {
+		display: flex;
+		height: 64px;
+	}
+
+	.back-wrapper {
+		margin: 0px;
+		width: auto;
+	}
+
+	.back-button {
+		border-radius: 0px !important;
+		height: 64px;
+	}
+
+	.question-stats-wrapper {
+		position: fixed;
+		z-index: 10000;
+		top: 0;
+		width: 100%;
+		height: 64px;
+		border-bottom: 1px solid #e8e8e8;
+		padding-bottom: 0px;
+	}
+}

@@ -1,0 +1,86 @@
+.topbar-account-dropdown-button {
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	padding: 10px 15px;
+	cursor: pointer;
+	width: 100%;
+	display: block;
+	text-align: center;
+	border-top: 1px solid rgb(220, 218, 224);
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	justify-content: center;
+	.text {
+		margin-left: 8px;
+	}
+	.icon {
+		font-size: 1.2em;
+	}
+}
+.topbar-account-dropdown-button:last-child {
+	border-radius: 0 0 8px 8px;
+}
+.topbar-account-dropdown-button:hover {
+	background-color: #f0f0f0;
+}
+
+.topbar-account-popover .ant-popover-inner-content {
+	padding: 0;
+}
+
+.prepleaf-logo-topbar {
+	/*246, 788*/
+	width: 180px;
+	height: 62px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-left: 20px;
+}
+
+.prepleaf-logo-topbar img {
+	height: 55%;
+}
+
+.mobile-only {
+	display: block;
+}
+.desktop-only {
+	display: none;
+}
+
+@media only screen and (min-width: 900px) {
+	.mobile-only {
+		display: none;
+	}
+	.desktop-only {
+		display: block;
+	}
+}
+
+.topbar-button {
+	height: 100%;
+	width: 100%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: inherit;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	&:hover {
+		color: inherit;
+		opacity: 0.7;
+	}
+	&-container {
+		min-width: 48px;
+		font-size: 14px;
+		border-radius: 1000px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0px 0px;
+	}
+}

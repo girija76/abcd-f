@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="width=device-width,initial-scale=1" name="viewport" />
+		<meta content="#333333" name="theme-color" />
+		<base href=/vimeo_player/ > <link href=https://www.prepleaf.com/favicon.ico
+		rel=icon type=image/png>
+		<style>
+			body {
+				margin: 0;
+				font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
+					Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+				font-size: 14px;
+				line-height: 1.5;
+				color: #333;
+			}
+			@media (min-width: 400px) {
+				body {
+					font-size: 16px;
+				}
+			}
+		</style>
+		<script>
+			__SAPPER__ = { baseUrl: '/vimeo_player', preloaded: [void 0, {}] };
+			if ('serviceWorker' in navigator)
+				navigator.serviceWorker.register('/vimeo_player/service-worker.js');
+			(function() {
+				try {
+					eval('async function x(){}');
+					var main = '/vimeo_player/client/client.97f83049.js';
+				} catch (e) {
+					main = '/vimeo_player/client/legacy/client.72cf42cf.js';
+				}
+				var s = document.createElement('script');
+				try {
+					new Function("if(0)import('')")();
+					s.src = main;
+					s.type = 'module';
+					s.crossOrigin = 'use-credentials';
+				} catch (e) {
+					s.src = '/vimeo_player/client/shimport@2.0.4.js';
+					s.setAttribute('data-main', main);
+				}
+				document.head.appendChild(s);
+			})();
+		</script>
+		<link href=/vimeo_player/client/client.97f83049.js rel=modulepreload as=script
+		crossorigin=use-credentials><link href=/vimeo_player/client/index.449ab452.js
+		rel=modulepreload as=script crossorigin=use-credentials>
+	</head>
+	<body>
+		<div id="sapper">
+			<iframe
+				allow="autoplay"
+				frameborder="0"
+				src="https://player.vimeo.com/video/?autoplay=1"
+				style="width:100vw;height:100vh;border:none"
+				title="Video"
+			></iframe>
+		</div>
+	</body>
+</html>

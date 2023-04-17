@@ -1,0 +1,24 @@
+.academic-bar {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	align-items: center;
+	.graph-legend-list {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		margin-top: 20px;
+		.item {
+			margin: 10px;
+			display: flex;
+			align-items: center;
+		}
+		.graph-legend-color {
+			min-width: 12px;
+			min-height: 12px;
+			margin-right: 8px;
+			content: ' ';
+			display: inline-block;
+		}
+	}
+}

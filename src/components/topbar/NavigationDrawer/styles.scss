@@ -1,0 +1,133 @@
+$time-1: 60ms;
+$border-bottom: solid 1px rgba(100, 120, 140, 0.2);
+$border-bottom: none;
+.app-navigation-drawer {
+	position: fixed;
+	display: none;
+	z-index: 10010;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	&.visible {
+		display: flex;
+	}
+
+	.panel-close-helper {
+		background: rgba(0, 0, 0, 0.32);
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 0;
+		transition: ease opacity $time-1;
+	}
+
+	.main-content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		overflow-y: auto;
+		background-color: white;
+		right: 64px;
+		transition: ease transform 3 * $time-1;
+		box-shadow: 1px 0 14px 4px rgba(0, 0, 0, 0.2);
+		@media (orientation: landscape), (min-width: 600px) {
+			right: unset;
+			max-width: 500px;
+			@media (min-width: 464px) {
+				min-width: 400px;
+			}
+		}
+
+		.user-info {
+			.item {
+				margin: 4px 0;
+				color: #fff;
+				font-size: 1.5rem;
+				line-height: normal;
+				.text {
+					font-size: 1.3rem;
+					margin-left: 6px;
+					color: #fff;
+				}
+				&.name .text {
+					font-size: 1.6rem;
+				}
+			}
+			&-wrapper {
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+				padding: 16px;
+				font-size: 18px;
+				border-bottom: $border-bottom;
+				background: #607d8b;
+				background-color: rgb(41, 115, 240);
+				min-height: 180px;
+				@media (orientation: landscape) {
+					padding-right: 48px;
+				}
+				.avatar-container {
+					margin-right: 12px;
+					background-color: rgba(255, 255, 255, 1);
+					padding: 8px;
+					border: solid 1px #e0e5e9;
+					border-radius: 100px;
+				}
+			}
+		}
+		.list {
+			&-item {
+				background: transparent;
+				border: none;
+				outline: none;
+				line-height: 56px;
+				width: 100%;
+				display: flex;
+				border-bottom: $border-bottom;
+				padding-left: 16px;
+				padding-right: 16px;
+				font-size: 1.2rem;
+				display: flex;
+				align-items: center;
+				&-divider {
+					border-bottom: solid 1px rgba(100, 120, 140, 0.2);
+				}
+				.icon {
+					color: #515151;
+					font-size: 1.2em;
+				}
+				.text {
+					margin-left: 12px;
+					color: #313131;
+				}
+				&.hidden {
+					display: none;
+				}
+			}
+		}
+	}
+	&.is-closing,
+	&.ready-to-open {
+		.main-content {
+			transform: translateX(-100%);
+		}
+		.panel-close-helper {
+			opacity: 0;
+		}
+	}
+
+	&.is-opening {
+		.main-content {
+		}
+	}
+
+	&.is-closed {
+		.main-content {
+			transform: translateX(-100%);
+		}
+	}
+}

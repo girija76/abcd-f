@@ -1,0 +1,28 @@
+.admin-phase-switcher {
+	&-list {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		margin-left: -12px;
+
+		&-item {
+			background-color: #fff;
+			border: solid 2px #e0e0e0;
+			border-radius: 12px;
+			margin: 12px;
+			padding: 12px;
+			min-height: 120px;
+			min-width: 120px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 1.5rem;
+			transition: box-shadow ease 300ms;
+			cursor: pointer;
+			font-weight: 600;
+			&:hover {
+				box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+			}
+		}
+	}
+}

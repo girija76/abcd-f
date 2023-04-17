@@ -1,0 +1,50 @@
+.course-plan-calendar-view {
+	&,
+	.rbc-calendar {
+		min-height: inherit;
+		max-height: inherit;
+	}
+	.rbc-month-view {
+		border-radius: 8px;
+		border-color: #e0e0ff;
+	}
+	.rbc-header {
+		padding: 8px 4px;
+	}
+
+	.calendar-toolbar {
+		margin-bottom: 1rem;
+		padding-top: 8px;
+	}
+	.navigation-container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.navigation-current-date-text {
+		font-size: 1.5rem;
+	}
+	.navigation-arrow-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.navigation-today-button {
+		display: inline-flex;
+	}
+	.navigation-button-list {
+		display: flex;
+		align-items: center;
+	}
+	.filters-list {
+		display: flex;
+		flex-direction: column;
+	}
+	@media screen and (min-width: 900px) {
+		.filters-list {
+			flex-direction: row;
+			justify-content: space-between;
+		}
+	}
+}

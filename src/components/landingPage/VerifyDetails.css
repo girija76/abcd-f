@@ -1,0 +1,54 @@
+.verify-details-downshift-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.verify-details-downshift-option-list {
+	z-index: 100;
+	padding: 0;
+	border: solid 1px #cacaca;
+	border-top: none;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	max-height: 100px;
+	overflow: auto;
+}
+
+.verify-details-downshift-label {
+	margin: 5px 0px;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.verify-details-downshift-open {
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.profile-details-downshift-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.profile-details-downshift-option-list {
+	z-index: 100;
+	width: 320px;
+	padding: 0;
+	border: solid 1px #cacaca;
+	border-top: none;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	max-height: 100px;
+	overflow: auto;
+}
+
+.profile-details-downshift-label {
+	margin: 5px 0px;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.profile-details-downshift-open {
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}

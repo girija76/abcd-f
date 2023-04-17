@@ -1,0 +1,32 @@
+.nunito-font {
+	font-family: Nunito, sans-serif !important;
+}
+
+.series-features-wrapper {
+	font-family: Nunito, sans-serif !important;
+	margin: 0px 32px;
+}
+
+.series-features-image {
+	width: 200px;
+}
+
+@media (min-width: 1200px) {
+	/*	.series-features-wrapper {
+		margin: 0px 128px;
+	}*/
+
+	/*	.series-features-image {
+		width: 330px;
+	}*/
+}
+
+@media (min-width: 1440px) {
+	/*	.series-features-wrapper {
+		margin: 0px 192px;
+	}
+*/
+	/*	.series-features-image {
+		width: 360px;
+	}*/
+}

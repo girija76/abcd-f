@@ -1,0 +1,25 @@
+name: Deploy to All subdomains
+
+on:
+ workflow_dispatch:
+
+jobs:
+ build:
+  runs-on: ubuntu-latest
+  steps:
+   - uses: actions/checkout@v2
+   - uses: actions/setup-node@v1
+     with:
+      node-version: 12
+   - run: yarn install --frozen-lockfile
+   - uses: zcong1993/setup-timezone@master
+     with:
+      timezone: Asia/Kolkata
+   - uses: aws-actions/configure-aws-credentials@v1
+     with:
+      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      aws-region: ap-south-1
+
+   - run: GENERATE_SOURCEMAP=false ./shell-scripts/build-production-on-github.sh aisahm,aryabhatta-classes,brothersacademy,bothraclasses,chanakaya-tutorial,ciel-knowledge,coaching,college,dakshana,edustation,gckiranpur,gprep,gurukul,icon-academy,kaydee,kotaclasses,lml,mahapragya,mahapragyas,master-jee,newtopper,prepare,pccp-reliablekota,privilege,ramanujan-jee,reliablekota-cbt,reliablekota,resonance,rvparankar,sciencewing,unchaai,vigyas,vyasedification,vimukta,vyasedification,coaching,school,college,sandipani,sat,jeeboard,nachiar,edugreed,r3-institute,prepniti,jnvreliablekota,newwayclasses,satyaclasses,miracle-academy,learnspace,usha-tutorials,osf,sai-study-center,ra-institute,radiant
+   - run: ./shell-scripts/deploy-production-from-github.sh

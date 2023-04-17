@@ -1,0 +1,125 @@
+$border-color: #dcdae0;
+$spacing: 8px;
+$border-radius: 5px;
+
+.report-question {
+	&-modal {
+		&-content {
+			background: #fff;
+			border: solid 1px $border-color;
+			border-radius: 5px;
+			min-width: 400px;
+			width: 600px;
+			max-width: 90%;
+			@media (max-width: 500px) {
+				min-width: auto;
+			}
+			.heading {
+				border-bottom: solid 1px $border-color;
+			}
+			.body {
+				.report-question-option-list {
+				}
+				.thank-you {
+					color: #333;
+					padding: 2 * $spacing;
+					text-align: center;
+				}
+				.report-question-option {
+					display: flex;
+					flex-wrap: wrap;
+					padding: $spacing $spacing * 2;
+					cursor: pointer;
+					&.is-selected {
+						.input-container {
+							color: #00abdb;
+							// background: #48b9e6;
+							&:before {
+								content: ' ';
+								border: solid 4px;
+								border-radius: 50%;
+							}
+						}
+					}
+					.input-container {
+						position: relative;
+						display: flex;
+						width: 20px;
+						height: 20px;
+						margin-right: $spacing;
+						justify-content: center;
+						align-items: center;
+						background: white;
+						color: #757575;
+						border: solid 2px;
+						border-radius: 50%;
+						input {
+							display: none;
+						}
+					}
+				}
+				.report-question-detail-container {
+					padding: $spacing 2 * $spacing;
+					.detail {
+						width: 100%;
+						min-height: 100px;
+						border-radius: $border-radius;
+						border: solid 1px $border-color;
+						padding: $spacing;
+						&:focus {
+							border-color: #333;
+						}
+					}
+				}
+			}
+
+			.footer {
+				display: flex;
+				justify-content: flex-end;
+				border-top: solid 1px $border-color;
+				.confirm-button,
+				.cancel-button {
+					border: none;
+					color: rgb(96, 96, 96);
+					padding: $spacing 2 * $spacing;
+					background: transparent;
+					margin: 0 $spacing;
+					border-radius: 4px;
+					cursor: pointer;
+					text-transform: uppercase;
+					&:hover {
+						background: #f5f5f5;
+					}
+					&[disabled] {
+						cursor: not-allowed;
+						color: rgb(144, 144, 144);
+					}
+				}
+				.confirm-button {
+					color: rgb(64, 169, 255);
+					&[disabled] {
+						color: rgb(144, 144, 144);
+					}
+				}
+			}
+			.heading,
+			.footer {
+				margin: 0;
+				padding: $spacing 2 * $spacing;
+			}
+		}
+		&-overlay {
+			position: fixed;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			left: 0px;
+			background-color: rgba(255, 255, 255, 0.75);
+			background-color: rgba(0, 0, 0, 0.75);
+			z-index: 1000;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}

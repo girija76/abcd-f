@@ -1,0 +1,45 @@
+.analysis-part-three {
+	.roadmap-filters-container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.filter-list {
+		display: flex;
+		flex-wrap: nowrap;
+		border: solid 1px #dcdae0;
+		border-radius: 40px;
+		overflow: hidden;
+		margin: 10px 20px;
+		&-item {
+			padding: 8px 16px;
+			min-width: 130px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: white;
+			border: none;
+			border-right: solid 1px #dcdae0;
+			cursor: pointer;
+			@media screen and (max-width: 600px) {
+				min-width: 120px;
+			}
+			&.cursor-not-allowed {
+				cursor: not-allowed;
+			}
+			&:last-child {
+				border-right: none;
+			}
+			&.is-active {
+				background-color: rgba(40, 195, 255, 0.14);
+			}
+		}
+	}
+}
+
+@media (max-width: 1024px) {
+	.analysis-part-three .roadmap-filters-container {
+		justify-content: center;
+	}
+}

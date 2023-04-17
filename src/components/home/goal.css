@@ -1,0 +1,36 @@
+.goal-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.goal-item {
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 2;
+}
+
+.goal-item.largest {
+	flex: 3;
+}
+
+@media (max-width: 800px) {
+	.goal-item.largest {
+		min-width: 100%;
+		margin-bottom: 12px;
+	}
+	.goal-item.normal {
+		width: 50%;
+		margin-left: 0 !important;
+	}
+}
+
+@media (max-width: 500px) {
+	.goal-item.normal {
+		min-width: 100%;
+		margin-bottom: 12px !important;
+		margin-right: 0 !important;
+		margin-left: 0 !important;
+	}
+}

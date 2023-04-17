@@ -1,0 +1,33 @@
+name: Deploy to subdomains
+
+on:
+ workflow_dispatch:
+  inputs:
+   subdomains:
+    description: 'Subdomains(separated by comma,i.e. jobs,prepare)'
+    required: true
+   generateSourceMap:
+    description: 'Generate Source Map(type true if you want to generate source maps)'
+    default: 'false'
+    required: false
+
+jobs:
+ build:
+  runs-on: ubuntu-latest
+  steps:
+   - uses: actions/checkout@v2
+   - uses: actions/setup-node@v1
+     with:
+      node-version: 12
+   - run: yarn install --frozen-lockfile
+   - uses: zcong1993/setup-timezone@master
+     with:
+      timezone: Asia/Kolkata
+   - uses: aws-actions/configure-aws-credentials@v1
+     with:
+      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      aws-region: ap-south-1
+
+   - run: GENERATE_SOURCEMAP=${{github.event.inputs.generateSourceMap}} ./shell-scripts/build-production-on-github.sh ${{ github.event.inputs.subdomains }}
+   - run: ./shell-scripts/deploy-production-from-github.sh

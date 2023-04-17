@@ -1,0 +1,16 @@
+.feedback-form-rating-button {
+	background: transparent;
+	border: none;
+	font-size: 3rem;
+	color: rgb(216, 0, 0);
+	padding: 12px 8px;
+	border-radius: 8px;
+	line-height: normal;
+	cursor: pointer;
+	font-weight: normal;
+	transition: background ease 300ms;
+	min-width: 80px;
+	&:not(.is-selected):hover {
+		background-color: rgba(0, 0, 0, 0.1) !important;
+	}
+}

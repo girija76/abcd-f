@@ -1,0 +1,63 @@
+.stats-card-wrapper {
+	width: 280px;
+	margin: 20px;
+	margin-top: 5px;
+	background-color: white;
+	border-radius: 10px;
+	border: 1px solid #cfd8dc;
+	padding: 12px;
+}
+
+.stats-numbers-wrapper {
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.stats-number1 {
+	font-size: 16px;
+}
+
+.stats-number2 {
+	font-size: 20px;
+}
+
+@media (max-width: 1024px) {
+	.stats-heading {
+		display: none;
+	}
+
+	.stats-card-wrapper {
+		display: flex;
+		width: 100%;
+		margin: 0px;
+		height: 64px;
+		justify-content: center;
+		padding: 0px;
+		padding-left: 36px;
+		border-radius: 0px;
+		border: 0px;
+	}
+
+	.stats-max {
+		display: none;
+	}
+
+	.stats-avg-wrapper {
+		flex-direction: column;
+		padding-right: 1.5rem;
+	}
+
+	.stats-numbers-wrapper {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	.stats-number1 {
+		font-size: 12px;
+	}
+
+	.stats-number2 {
+		margin-left: 12px;
+		font-size: 14px;
+	}
+}

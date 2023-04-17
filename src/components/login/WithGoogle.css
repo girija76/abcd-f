@@ -1,0 +1,26 @@
+.with-google-button {
+	background: transparent;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid rgba(33, 150, 243, 0.5);
+	color: #2196f3;
+	padding: 8px 24px;
+	width: 100%;
+	border-radius: 4px;
+	margin-bottom: 15px;
+	cursor: pointer;
+	border-color: #e2e2e2;
+	color: #313131;
+}
+.with-google-button:last-child {
+	margin-bottom: 10px;
+}
+.with-google-button:hover {
+	border: 1px solid #2196f3;
+	background-color: rgba(33, 150, 243, 0.08);
+}
+
+.with-google-modal {
+	width: 360px !important;
+}

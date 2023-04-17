@@ -1,0 +1,221 @@
+.question-link-container {
+	position: relative;
+	width: 24%;
+	border-radius: 2px;
+	text-align: center;
+	margin-bottom: 3px;
+	margin-right: 2px;
+	padding: 4px 0px;
+	cursor: pointer;
+	line-height: 26px;
+}
+
+.question-link-container-active {
+	position: relative;
+	width: 24%;
+	border: 2px solid black;
+	border-radius: 2px;
+	text-align: center;
+	margin-bottom: 3px;
+	margin-right: 2px;
+	padding: 4px 0px;
+	cursor: pointer;
+	line-height: 22px;
+}
+
+.analysis-skull {
+	background-image: url(../../routes/practice/active/skull.jpg);
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+	background-size: 20px 20px;
+	background-position: 2px 2px;
+	width: 24px;
+	height: 24px;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border-radius: 4px;
+}
+
+.question-link-container-marked {
+	position: relative;
+	width: 24%;
+	border-radius: 2px;
+	text-align: center;
+	margin-bottom: 3px;
+	margin-right: 2px;
+	border-right: 6px solid black;
+	padding: 4px 0px;
+	padding-left: 6px;
+	cursor: pointer;
+	line-height: 26px;
+}
+
+.question-link-container-active-marked {
+	position: relative;
+	width: 24%;
+	border: 2px solid black;
+	border-radius: 2px;
+	text-align: center;
+	margin-bottom: 3px;
+	margin-right: 2px;
+	border-right: 6px solid black;
+	padding: 4px 0px;
+	padding-left: 3px;
+	cursor: pointer;
+	line-height: 22px;
+}
+
+.question-link-container-lastcolumn {
+	position: relative;
+	width: 24%;
+	border-radius: 2px;
+	text-align: center;
+	margin-bottom: 3px;
+	margin-right: 0px;
+	padding: 4px 0px;
+	cursor: pointer;
+	line-height: 26px;
+}
+
+.question-link-container-active-lastcolumn {
+	position: relative;
+	width: 24%;
+	border: 2px solid black;
+	border-radius: 2px;
+	text-align: center;
+	margin-bottom: 3px;
+	padding: 4px 0px;
+	cursor: pointer;
+	line-height: 22px;
+}
+
+.question-link-container-marked-lastcolumn {
+	position: relative;
+	width: 24%;
+	border-radius: 2px;
+	text-align: center;
+	margin-bottom: 3px;
+	margin-right: 0px;
+	border-right: 6px solid black;
+	padding: 4px 0px;
+	padding-left: 6px;
+	cursor: pointer;
+	line-height: 26px;
+}
+
+.question-link-container-active-marked-lastcolumn {
+	position: relative;
+	width: 24%;
+	border: 2px solid black;
+	border-radius: 2px;
+	text-align: center;
+	margin-bottom: 3px;
+	border-right: 6px solid black;
+	padding: 4px 0px;
+	padding-left: 3px;
+	cursor: pointer;
+	line-height: 22px;
+}
+
+/*upto here*/
+.color-answered-marked {
+	border: 1px solid black;
+	border-radius: 2px;
+	margin-right: 10px;
+	border-right: 8px solid black !important;
+	background-color: #a5cd7c;
+}
+
+.color-not-answered-marked {
+	border: 1px solid black;
+	border-radius: 2px;
+	margin-right: 10px;
+	border-right: 8px solid black !important;
+	background-color: #cd7c7c;
+}
+
+@media only screen and (min-width: 1280px) {
+	/* For desktop: */
+	.question-link-container {
+		margin-right: 3px;
+		line-height: 30px;
+	}
+
+	.question-link-container-active {
+		margin-right: 3px;
+		border: 3px solid black;
+		line-height: 24px;
+	}
+
+	.question-link-container-active-marked {
+		margin-right: 3px;
+		border: 3px solid black;
+		border-right: 6px solid black;
+		line-height: 24px;
+	}
+
+	.question-link-container-active-lastcolumn {
+		border: 3px solid black;
+		line-height: 24px;
+	}
+
+	.question-link-container-active-marked-lastcolumn {
+		border: 3px solid black;
+		border-right: 6px solid black;
+		line-height: 24px;
+	}
+
+	.question-link-container-marked {
+		margin-right: 3px;
+		line-height: 30px;
+	}
+
+	.question-link-container-lastcolumn {
+		line-height: 30px;
+	}
+
+	.question-link-container-marked-lastcolumn {
+		line-height: 30px;
+	}
+}
+
+@media (max-width: 1024px) {
+	.question-link-container {
+		min-width: 80px;
+	}
+
+	.question-link-container-active {
+		min-width: 80px;
+	}
+
+	.question-link-container-marked {
+		min-width: 80px;
+	}
+
+	.question-link-container-active-marked {
+		min-width: 80px;
+	}
+
+	.question-link-container-lastcolumn {
+		min-width: 80px;
+		margin-right: 2px;
+	}
+
+	.question-link-container-active-lastcolumn {
+		min-width: 80px;
+		margin-right: 2px;
+	}
+
+	.question-link-container-marked-lastcolumn {
+		min-width: 80px;
+		margin-right: 2px;
+	}
+
+	.question-link-container-active-marked-lastcolumn {
+		min-width: 80px;
+		margin-right: 2px;
+	}
+}

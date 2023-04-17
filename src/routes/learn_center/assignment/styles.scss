@@ -1,0 +1,49 @@
+.learning-center-assignment {
+	.root {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+	}
+	.assignment-title {
+		margin-top: 1rem;
+		margin-left: 1rem;
+	}
+	.assignment-description {
+		margin-left: 1rem;
+		margin-top: 0.5rem;
+		color: #676869;
+	}
+	.assignment-message-container {
+		margin-left: 1rem;
+		font-size: 1.4rem;
+	}
+	.assignment-submission-list {
+		// margin-left: 1rem;
+	}
+	.assignment-file-list {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		padding: 0 0.5rem;
+		&-item {
+			width: 300px;
+			max-width: 100%;
+			border: solid 1px #e9e9e9;
+			border-radius: 4px;
+			box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.1);
+			padding: 0.75rem;
+			margin: 0.5rem;
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+	.assignment-upload-list {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		padding: 0 0.5rem;
+	}
+	.assignment-footer {
+		padding: 0.5rem 1rem;
+	}
+}

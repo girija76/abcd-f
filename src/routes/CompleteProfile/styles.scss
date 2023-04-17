@@ -1,0 +1,33 @@
+$input-height: 40px;
+.complete-profile {
+	display: flex;
+	justify-content: center;
+	padding-top: 36px;
+	padding-bottom: 36px;
+	.wrapper {
+		max-width: 550px;
+		width: 80%;
+	}
+	.email-verification-container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.form {
+		&-item {
+			margin: 10px 0;
+			flex-direction: column;
+			&-label {
+				display: block;
+				color: #000;
+				font-weight: 500;
+			}
+			&-input {
+				display: block;
+				height: $input-height;
+				width: 100%;
+				margin-top: 4px;
+			}
+		}
+	}
+}

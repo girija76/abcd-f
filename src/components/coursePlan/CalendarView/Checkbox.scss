@@ -1,0 +1,51 @@
+.prepleaf-calendar-checkbox {
+	&-container {
+		padding: 4px 8px;
+		display: inline-flex;
+		align-items: center;
+		color: #3c4043;
+		cursor: pointer;
+		&:disabled {
+			cursor: not-allowed;
+		}
+		&.checked {
+			.tick {
+				opacity: 1;
+			}
+		}
+	}
+	position: relative;
+	display: flex;
+	margin-right: 4px;
+	.inner {
+		background-color: rgba(0, 0, 0, 0.1);
+		border: solid 9px;
+		display: inline-block;
+		border-radius: 3px;
+	}
+	.tick {
+		position: absolute;
+		top: -8px;
+		left: -2px;
+		height: 18px;
+		width: 18px;
+		transform: rotate(-135deg);
+		transform-origin: 9px 9px;
+		opacity: 0;
+		transition: all ease 300ms;
+
+		&-inner {
+			position: absolute;
+			left: 0;
+			right: 0;
+			.f {
+				width: 7px;
+				border-top: solid 2px #fff;
+			}
+			.s {
+				height: 10px;
+				border-left: solid 2px #fff;
+			}
+		}
+	}
+}

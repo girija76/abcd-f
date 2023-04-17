@@ -1,0 +1,45 @@
+.home-card {
+	width: 100%;
+}
+
+.feed-list .ant-list-item-content {
+	margin-bottom: 0px !important;
+}
+
+.feed-list .ant-list-item {
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+}
+
+.rightbar-card {
+	background-color: transparent !important;
+	border: 0px !important;
+}
+
+@media only screen and (min-width: 1200px) {
+	/* For desktop: */
+	.home-card {
+		width: 100%;
+	}
+}
+
+a {
+	color: rgba(0, 0, 0, 0.65);
+}
+
+.number {
+	/* Also in StyleSheet!*/
+	font-family: 'Oswald', sans-serif;
+}
+
+.portal-stats-wrapper .ant-skeleton-title {
+	display: none;
+}
+
+.portal-stats-wrapper .ant-skeleton-paragraph {
+	margin: 0px !important;
+}
+
+.portal-stats-wrapper .ant-skeleton-content .ant-skeleton-paragraph > li {
+	background-color: white;
+}

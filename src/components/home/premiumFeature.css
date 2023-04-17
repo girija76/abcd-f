@@ -1,0 +1,30 @@
+.white-button {
+	color: #ffffff !important;
+}
+
+.white-button:focus {
+	color: #ffffff !important;
+}
+
+.white-button:active {
+	color: #ffffff !important;
+}
+
+.white-button:hover {
+	color: #40a9ff !important;
+}
+
+.test-series-modal {
+	width: 70vw !important;
+}
+
+.custom-input {
+	width: 100%;
+	padding: 8px 12px;
+	border-radius: 3px;
+	border: 1px solid #c0c0c0;
+}
+
+.custom-input:focus {
+	outline: none;
+}

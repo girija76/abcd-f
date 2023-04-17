@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:600');
+
+.custom-text-area {
+	background-color: #fdf6e3;
+	color: #586e75;
+	resize: none;
+	padding: 5px;
+	border: 0px;
+	outline: none;
+	font-size: 13px;
+	width: 100%;
+}
+
+.custom-text-area:focus {
+	outline: none !important;
+	box-shadow: 0 0 0 0 rgba(24, 144, 255, 0.2) !important;
+}
+
+.note-header {
+	font-family: 'Raleway', sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	flex: 1;
+}
+
+.all-notes {
+	font-family: 'Raleway', sans-serif;
+	cursor: pointer;
+	font-size: 14px;
+	color: blue;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+.note-card {
+	display: none;
+}
+
+.note-wrapper {
+	display: block;
+}
+
+@media only screen and (min-width: 1024px) {
+	/* For desktop: */
+	.note-card {
+		display: block;
+		/*width: 260px;*/
+	}
+}
+
+@media only screen and (min-width: 1280px) {
+	/* For desktop: */
+	.note-card {
+		display: block;
+		/* width: 300px; */
+	}
+}
+
+@media (max-width: 900px) {
+	.note-wrapper {
+		display: none;
+	}
+}

@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:600');
+
+.progress-bar {
+	background-color: #e7eeef;
+	border-radius: 10px;
+}
+
+.progressbar-progress {
+	border-radius: 10px;
+}
+
+.practice-header {
+	margin-left: 20px;
+	font-family: 'Raleway', sans-serif;
+	font-size: 20px;
+	padding: 0px 5px;
+	font-weight: bold;
+}
+
+.change-topic-container:hover {
+	text-decoration: none;
+}
+
+.subtopic-card {
+	font-family: 'Raleway', sans-serif;
+}
+
+.red-button {
+	background-color: #ff5252;
+	border: 1px solid #d32f2f;
+}
+
+.red-button:hover {
+	background-color: #ff6363;
+	border: 1px solid #ff5252;
+}
+
+.red-button:focus {
+	background-color: #ff5252;
+	border: 1px solid #d32f2f;
+}
+
+.topic-list .ant-list-items {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+.topic-card-wrapper-1 {
+	width: 200px;
+	height: 190px;
+}
+
+.topic-card-wrapper-2 {
+	width: 200px;
+	height: 148px;
+}
+
+.topic-card-inner-wrapper {
+	width: 180px;
+	height: 170px;
+}
+
+.topic-card-inner-wrapper-2 {
+	width: 180px;
+	height: 128px;
+}
+
+.topic-card-image {
+	width: 64px;
+	height: 64px;
+}
+.topic-card-image-2 {
+	width: 52px;
+	height: 52px;
+}
+.topic-card-title {
+	font-size: 14px;
+}
+
+@media only screen and (min-width: 900px) {
+	.topic-card-wrapper-1 {
+		width: 260px;
+		height: 245px;
+	}
+
+	.topic-card-wrapper-2 {
+		width: 238px;
+		height: 148px;
+	}
+
+	.topic-card-inner-wrapper {
+		width: 240px;
+		height: 225px;
+	}
+
+	.topic-card-inner-wrapper-2 {
+		width: 230px;
+		height: 140px;
+	}
+
+	.topic-card-image {
+		width: 120px;
+		height: 120px;
+	}
+	.topic-card-image-2 {
+		width: 72px;
+		height: 72px;
+	}
+
+	.topic-card-title {
+		font-size: 18px;
+	}
+}

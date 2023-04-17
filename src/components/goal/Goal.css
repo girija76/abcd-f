@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+.goal-header {
+	display: flex;
+	margin-left: 10px;
+	/* font-family: 'Raleway', sans-serif; */
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.goal-settings-wrapper {
+	padding: 7px;
+	cursor: pointer;
+}
+
+.goal-settings {
+	transition: 0.5s;
+	/* color: #808080; */
+}
+
+.goal-settings-wrapper:hover .goal-settings {
+	transform: rotate(-30deg);
+	color: #039be5 !important;
+}
+
+.goal-score {
+	/* font-family: 'Lato', sans-serif; */
+	font-weight: bolder;
+	font-size: 36px;
+	color: #28a745;
+}
+
+.goal-number-wrapper {
+	justify-content: space-evenly;
+}
+
+@media only screen and (min-width: 900px) {
+	.goal-settings-modal {
+		min-width: 740px !important;
+	}
+}
+
+@media only screen and (min-width: 960px) {
+	.goal-number-wrapper {
+		justify-content: center;
+	}
+}

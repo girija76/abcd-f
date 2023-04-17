@@ -1,0 +1,77 @@
+.bottom-navigation {
+	$height-md: 56px;
+	$height-sm: 52px;
+	$height-lg: 64px;
+	$active-color: rgb(26, 115, 232);
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	background-color: white;
+	position: fixed;
+	bottom: 0;
+	z-index: 1000;
+	width: 100%;
+	left: 0;
+	box-shadow: 8px 0 16px rgba(0, 0, 0, 0.2);
+	.link {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: space-between;
+		font-size: 13px;
+		line-height: normal;
+		height: $height-md;
+		padding: 14px 4px 8px;
+		cursor: pointer;
+		border: none;
+		background-color: white;
+		&:focus:not(.active) {
+			background-color: rgba(26, 115, 232, 0.1);
+		}
+		.text {
+			font-size: 14px;
+			color: inherit;
+			transition: all ease 200ms;
+			transform-origin: center top;
+		}
+		.icon-container {
+			font-size: 1.9rem;
+			color: inherit;
+			display: inline-flex;
+			margin-bottom: 2px;
+			transition: all ease 200ms;
+			transform-origin: center bottom;
+		}
+		&.active {
+			color: $active-color;
+		}
+
+		@media (min-width: 450px) {
+			height: $height-lg;
+			font-size: 15px;
+			justify-content: space-around;
+		}
+
+		@media (max-height: 390px) {
+			height: $height-sm;
+			font-size: 12px;
+		}
+	}
+	.active-tab-line {
+		position: absolute;
+		left: 0;
+		top: 0;
+		border-top: solid 3px $active-color;
+		border-bottom: solid 3px $active-color;
+		border-radius: 0 0 4px 4px;
+		z-index: 2;
+		transition: left ease 300ms;
+	}
+	@media only screen and (min-width: 900px) {
+		display: none;
+	}
+	&.always-visible {
+		display: flex;
+	}
+}

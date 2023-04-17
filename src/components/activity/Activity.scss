@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+.activity-page-root {
+	width: 100%;
+	.page-title {
+		padding: 16px 0;
+		font-size: 18px;
+	}
+	.tab-wrapper {
+		padding: 16px;
+	}
+	.tab {
+		margin-bottom: 2px;
+		position: relative;
+		&:after {
+			position: absolute;
+			bottom: 1px;
+			left: 0;
+			right: 0;
+			content: ' ';
+			border-bottom: solid 2px transparent;
+		}
+		&.active {
+			color: #40a9ff;
+			font-weight: 500;
+			&:after {
+				border-color: #1890ff;
+			}
+		}
+	}
+}
+.settings-header {
+	display: flex;
+	margin-left: 20px;
+	font-family: 'Raleway', sans-serif;
+	font-size: 20px;
+	padding: 0px 5px;
+	font-weight: bold;
+}
+
+.settings-header-true {
+	color: #039be5;
+	font-weight: bold;
+	text-decoration: none;
+	font-size: 17px;
+	font-family: 'Raleway', sans-serif;
+}
+
+.settings-header-false {
+	color: #212529;
+	cursor: pointer;
+	text-decoration: none;
+	font-size: 17px;
+	font-family: 'Raleway', sans-serif;
+}
+
+.settings-header-true:hover {
+	color: #039be5;
+	font-weight: bold;
+	text-decoration: none;
+	font-size: 17px;
+	font-family: 'Raleway', sans-serif;
+}
+
+.settings-header-false:hover {
+	color: #039be5;
+	font-weight: bold;
+	text-decoration: none;
+	font-size: 17px;
+	font-family: 'Raleway', sans-serif;
+}
+
+.acitivy-settings-card .ant-card-body {
+	padding: 12px 36px;
+}
+
+.activity-wrapper-mobile {
+	display: block;
+}
+
+.activity-session-wrapper-desktop {
+	display: none;
+}
+
+.activity-title .ant-card-head-wrapper {
+	display: none;
+}
+
+@media (max-width: 900px) {
+	.acitivy-settings-card .ant-card-body {
+		padding: 12px;
+	}
+}
+
+@media (min-width: 900px) {
+	.activity-wrapper-mobile {
+		display: none;
+	}
+
+	.activity-session-wrapper-desktop {
+		display: block;
+	}
+
+	.activity-title .ant-card-head-wrapper {
+		display: flex;
+	}
+}

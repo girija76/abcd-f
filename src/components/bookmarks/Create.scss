@@ -1,0 +1,82 @@
+$border-color: #dcdae0;
+$spacing: 8px;
+.create-bookmark-bucket {
+	&-modal {
+		&-content {
+			background: #fff;
+			border: solid 1px $border-color;
+			border-radius: 5px;
+			min-width: 400px;
+			width: 600px;
+			max-width: 90%;
+			@media (max-width: 500px) {
+				min-width: auto;
+			}
+
+			.heading {
+				border-bottom: solid 1px $border-color;
+			}
+			.body {
+				padding: 16px 16px 12px;
+				.input {
+					padding: 8px;
+					border-radius: 4px;
+					width: 100%;
+					border: solid 1px $border-color;
+					margin-bottom: 8px;
+				}
+			}
+			.footer {
+				display: flex;
+				justify-content: flex-end;
+				border-top: solid 1px $border-color;
+				.left {
+					flex-grow: 1;
+					align-items: center;
+					display: flex;
+				}
+				.confirm-button,
+				.cancel-button {
+					border: solid 1px;
+					color: #777;
+					border-color: #aaa;
+					padding: $spacing 2 * $spacing;
+					background: transparent;
+					margin: 0 $spacing;
+					border-radius: 4px;
+					cursor: pointer;
+					&:hover {
+						background: #f5f5f5;
+					}
+					&[disabled] {
+						cursor: not-allowed;
+						&:hover {
+							background: initial;
+						}
+					}
+				}
+				.cancel-button {
+					border-color: transparent;
+				}
+			}
+			.heading,
+			.footer {
+				margin: 0;
+				padding: $spacing 2 * $spacing;
+			}
+		}
+		&-overlay {
+			position: fixed;
+			top: 0px;
+			right: 0px;
+			bottom: 0px;
+			left: 0px;
+			background-color: rgba(255, 255, 255, 0.75);
+			background-color: rgba(0, 0, 0, 0.75);
+			z-index: 1000;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}

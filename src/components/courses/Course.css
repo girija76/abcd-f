@@ -1,0 +1,71 @@
+.course-table-cat .ant-table-thead > tr > th {
+	background-color: #1265c7 !important;
+	color: white !important;
+}
+
+.course-table-placement .ant-table-thead > tr > th {
+	background-color: #2e6d50 !important;
+	color: white !important;
+}
+
+.course-table-jee .ant-table-thead > tr > th {
+	background-color: #be3300 !important;
+	color: white !important;
+}
+
+.course-table-default .ant-table-thead > tr > th {
+	background-color: #000000 !important;
+	color: white !important;
+}
+
+.course-cards-wrapper {
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.extra-items {
+	display: none;
+}
+
+.analysis-wrapper {
+	flex-direction: column;
+}
+
+.analysis-sub-wrapper {
+}
+
+.zoom-image {
+	width: 70vw !important;
+	margin: auto;
+}
+
+.course-structure-wrapper {
+	flex-direction: column;
+	align-items: center;
+}
+
+@media only screen and (min-width: 1200px) {
+	.course-cards-wrapper {
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: space-evenly;
+	}
+
+	.extra-items {
+		display: block;
+	}
+
+	.analysis-wrapper {
+		flex-direction: row;
+	}
+
+	.analysis-sub-wrapper {
+		width: 50vw;
+	}
+
+	.course-structure-wrapper {
+		flex-direction: row;
+		align-items: flex-start;
+	}
+}

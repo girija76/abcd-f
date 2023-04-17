@@ -1,0 +1,10 @@
+.notifications {
+	&-tooltip {
+		.ant-popover-inner {
+			max-width: 430px;
+			width: 430px;
+			max-height: 60vh;
+			overflow: auto;
+		}
+	}
+}

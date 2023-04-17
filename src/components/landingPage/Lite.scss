@@ -1,0 +1,89 @@
+$logo-container-height: 120px;
+
+.lite-landing-page {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	overflow-x: hidden;
+	.top-wrapper {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		overflow: visible;
+	}
+	.background-color {
+		transform: rotateZ(-25deg);
+		transform-origin: bottom center;
+		height: 100%;
+		&-container {
+			width: 140%;
+			height: 440%;
+			position: absolute;
+			bottom: 1/2 * $logo-container-height;
+			left: -20%;
+			z-index: 0;
+			opacity: 0.75;
+		}
+	}
+	.other-content-container {
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 2rem;
+		padding-bottom: 0;
+	}
+	h4 {
+		font-size: 1.5rem;
+		color: white;
+	}
+	.logo-container {
+		background-color: white;
+		border-radius: 1000px;
+		width: $logo-container-height;
+		border: solid 4px #4897ef;
+		position: relative;
+	}
+	.logo-square {
+		width: 100%;
+		padding-top: 100%;
+	}
+	.logo-positioner {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 10%;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+	.logo-wrapper {
+		max-width: 75%;
+		max-height: 75%;
+	}
+	.logo {
+		max-width: 100%;
+		max-height: 100%;
+		&.is-circular {
+			border-radius: 50%;
+		}
+	}
+	.link-container {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		.link {
+			display: flex;
+			padding: 0.7rem;
+			justify-content: center;
+			text-align: center;
+			border-top: solid 1px #e0e1e2;
+			font-size: 1.1rem;
+		}
+	}
+}

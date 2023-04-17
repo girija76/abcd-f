@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /complete-profile/
+Disallow: /livetest/
+Disallow: /dashboard/
+Disallow: /reviewQuestions/
